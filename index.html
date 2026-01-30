@@ -82,6 +82,10 @@
         .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
         .checkbox-item input { width: auto; }
 
+        /* ستايل الخانة المنسدلة */
+        #experience-details-div { display: none; margin-top: 15px; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
         .btn-main { width: 100%; padding: 20px; background: #2c7a7b; color: white; border: none; border-radius: 15px; font-size: 19px; cursor: pointer; font-weight: bold; margin-top: 25px; box-shadow: 0 4px 12px rgba(44,122,123,0.3); transition: 0.3s; }
         .btn-main:hover { background: #1e5a5c; transform: translateY(-2px); }
         .btn-back { width: 100%; padding: 12px; background: #edeff2; color: #4a5568; border: none; border-radius: 12px; cursor: pointer; margin-top: 15px; font-weight: bold; }
@@ -136,7 +140,7 @@
             <div class="cta-box">
                 بادر قبل أن تغادر… فالأثر لا ينتظر المترددين، والتاريخ لا يذكر إلا أصحاب المبادرات. فالأوطان تُبنى بسواعد المبادرين، لا بأمنيات المتفرجين.
             </div>
-            <p style="text-align: center; font-weight: bold; font-size: 18px;">وتفضّلوا بقبول فائق الاحترام والتقدير</p>
+        
             <button class="btn-main" onclick="showForm()">الانتقال لاستمارة التسجيل</button>
         </div>
 
@@ -146,6 +150,7 @@
                 
                 <h3>1️⃣ البيانات الأساسية</h3>
                 <div class="field"><label>الاسم الثلاثي واللقب *</label><input type="text" name="fullName" required></div>
+                <div class="field"><label>البريد الإلكتروني (Email) *</label><input type="email" name="email" required></div>
                 <div class="field">
                     <label>الجنس *</label>
                     <select name="gender" required>
@@ -160,60 +165,58 @@
 
                 <h3>2️⃣ المستوى التعليمي والمهني</h3>
                 <div class="field">
-                    <label>الحالة الدراسية/المهنية *</label>
-                    <select name="jobStatus" required>
+                    <label>الحالة الدراسية *</label>
+                    <select name="eduStatus" required>
                         <option value="طالب">طالب جامعي</option>
-                        <option value="خريج">خريج (غير موظف)</option>
-                        <option value="موظف">موظف في القطاع العام</option>
-                        <option value="موظف اهلي">موظف في القطاع الخاص</option>
-                        <option value="كاسب">أعمال حرة</option>
+                        <option value="خريج">خريج</option>
+                        <option value="أخرى">أخرى</option>
                     </select>
                 </div>
-                <div class="field"><label>الكلية / القسم / التخصص الدقيق *</label><input type="text" name="major" required></div>
-                <div class="field"><label>المهارات التي تتقنها (تصميم، مونتاج، كتابة، إلقاء.. إلخ)</label><textarea name="skills" rows="2"></textarea></div>
+                <div class="field"><label>الكلية / القسم / التخصص *</label><input type="text" name="major" required></div>
+                <div class="field"><label>العمل الحالي / المهنة *</label><input type="text" name="job" required></div>
+                <div class="field"><label>المهارات التي تتقنها (تصميم، مونتاج، كتابة، إلخ)</label><textarea name="skills" rows="2"></textarea></div>
 
                 <h3>3️⃣ الخبرة والاهتمامات التطوعية</h3>
                 <div class="field">
-                    <label>هل لديك خبرة سابقة في العمل التطوعي؟</label>
-                    <select name="prevExp">
-                        <option value="لا">لا، هذه أول تجربة</option>
-                        <option value="نعم">نعم، شاركت سابقاً</option>
+                    <label>هل سبق لك المشاركة في أعمال تطوعية؟</label>
+                    <select name="prevExp" id="prevExp" onchange="toggleExperienceDetails()">
+                        <option value="لا">لا</option>
+                        <option value="نعم">نعم</option>
                     </select>
                 </div>
+                <div class="field" id="experience-details-div">
+                    <label>يرجى ذكر الأعمال أو الفرق التي شاركت بها سابقاً:</label>
+                    <textarea name="expDetails" rows="2"></textarea>
+                </div>
+
                 <div class="field">
-                    <label>المجالات التي ترغب بالإبداع فيها داخل الفريق (اختر ما يناسبك):</label>
+                    <label>المجالات التي ترغب بالإبداع فيها داخل الفريق:</label>
                     <div class="checkbox-grid">
                         <div class="checkbox-item"><input type="checkbox" name="interests" value="إنسانية"> حملات إنسانية</div>
-                        <div class="checkbox-item"><input type="checkbox" name="interests" value="تنظيمية"> تنظيم وإدارة فعاليات</div>
+                        <div class="checkbox-item"><input type="checkbox" name="interests" value="تنظيمية"> تنظيم فعاليات</div>
                         <div class="checkbox-item"><input type="checkbox" name="interests" value="إعلامية"> تصوير وإعلام</div>
                         <div class="checkbox-item"><input type="checkbox" name="interests" value="تعليمية"> تدريب وتعليم</div>
-                        <div class="checkbox-item"><input type="checkbox" name="interests" value="علاقات"> علاقات عامة وتواصل</div>
-                        <div class="checkbox-item"><input type="checkbox" name="interests" value="توعوية"> حملات توعية مجتمعية</div>
+                        <div class="checkbox-item"><input type="checkbox" name="interests" value="علاقات"> علاقات عامة</div>
+                        <div class="checkbox-item"><input type="checkbox" name="interests" value="توعوية"> حملات توعية</div>
                     </div>
                 </div>
 
-                <h3>4️⃣ الرؤية الشخصية والالتزام</h3>
+                <h3>4️⃣ الرؤية والالتزام</h3>
+                <div class="field"><label>لماذا ترغب بالانضمام للفريق؟ *</label><textarea name="whyUs" rows="3" required></textarea></div>
+                <div class="field"><label>القيمة المضافة التي ستقدمها للفريق؟ *</label><textarea name="valueAdd" rows="3" required></textarea></div>
                 <div class="field">
-                    <label>ما الذي دفعك لاختيار "فريق أثر كيميائي" تحديداً؟ *</label>
-                    <textarea name="whyUs" rows="3" required></textarea>
-                </div>
-                <div class="field">
-                    <label>ما هي القيمة المضافة التي تعتقد أنك ستقدمها للفريق؟ *</label>
-                    <textarea name="valueAdd" rows="3" required></textarea>
-                </div>
-                <div class="field">
-                    <label>هل أنت مستعد للالتزام بالاجتماعات والنشاطات الميدانية؟</label>
+                    <label>هل أنت مستعد للالتزام بالنشاطات؟</label>
                     <select name="commitment" required>
-                        <option value="نعم">نعم، مستعد تماماً</option>
-                        <option value="جزئي">حسب وقت الفراغ</option>
+                        <option value="نعم">نعم، مستعد</option>
+                        <option value="جزئي">حسب التفرغ</option>
                     </select>
                 </div>
 
-                <h3>5️⃣ التعهد القانوني</h3>
+                <h3>5️⃣ التعهد</h3>
                 <div class="field">
                     <div class="checkbox-item">
                         <input type="checkbox" required>
-                        <label>أتعهد بصحة المعلومات أعلاه والالتزام بضوابط الفريق والعمل بروح اليد الواحدة. *</label>
+                        <label>أتعهد بصحة المعلومات والالتزام بضوابط الفريق. *</label>
                     </div>
                 </div>
 
@@ -238,12 +241,18 @@
         window.scrollTo(0, 0);
     }
 
+    // دالة إظهار/إخفاء تفاصيل الخبرة
+    function toggleExperienceDetails() {
+        const val = document.getElementById('prevExp').value;
+        const detailsDiv = document.getElementById('experience-details-div');
+        detailsDiv.style.display = (val === 'نعم') ? 'block' : 'none';
+    }
+
     document.getElementById('volunteerForm').onsubmit = async (e) => {
         e.preventDefault();
         const btn = document.getElementById('btnSubmit');
         btn.disabled = true;
         btn.innerText = "جاري معالجة طلبك...";
-        
         const scriptURL = "https://script.google.com/macros/s/AKfycbzjdEX4Y6wnl9sHb5tnxz7lTdlMf9cyjVJl_7I9C-01YdR6eIjEypjqOYZ3ptmf3-2r3Q/exec";
 
         try {
@@ -253,11 +262,12 @@
             formData.set('interests', interests.join(' - '));
 
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'});
-            alert("تم إرسال بياناتك بنجاح! 🌱 أهلاً بك في عائلة أثر كيميائي.");
+            alert("تم إرسال بياناتك بنجاح! 🌱");
             e.target.reset();
+            toggleExperienceDetails(); // لإخفاء الخانة بعد الريسيت
             showWelcome();
         } catch (error) {
-            alert("عذراً، حدث خطأ في الاتصال.");
+            alert("حدث خطأ في الاتصال.");
         } finally {
             btn.disabled = false;
             btn.innerText = "إرسال طلب الانضمام الآن";
