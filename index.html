@@ -7,14 +7,13 @@
     <style>
         body { font-family: 'Tahoma', sans-serif; background: #f4f7f9; padding: 0; margin: 0; color: #333; line-height: 1.8; }
         
-        /* تصميم الهيدر العريض (Banner) */
+        /* تصميم الهيدر (البانر) */
         .header-banner {
             background: linear-gradient(135deg, #2c7a7b 0%, #1e5a5c 100%);
             padding: 40px 20px;
             text-align: center;
             color: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
         }
 
         .logo-wrapper {
@@ -31,31 +30,31 @@
         }
 
         .team-logo {
-            width: 110px; /* تصغير قليل لضمان التوسيط */
-            height: 110px;
-            object-fit: contain; /* يضمن عدم قص الصورة وتوسيطها */
+            width: 115px; 
+            height: 115px;
+            object-fit: contain; 
             display: block;
         }
 
+        /* تعديل الحاوية لتبدأ بعد البانر مباشرة بدون تداخل */
         .container { 
             background: white; 
             max-width: 750px; 
-            margin: -50px auto 40px; /* سحب الحاوية للأعلى قليلاً لتتداخل مع البانر */
+            margin: 20px auto 40px; /* مسافة بسيطة تحت البانر لراحة العين */
             padding: 40px; 
             border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            position: relative;
-            z-index: 10;
         }
 
         h1 { margin: 0; font-size: 28px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .motto-header { opacity: 0.9; font-size: 14px; margin-top: 10px; display: block; }
+        .motto-header { opacity: 0.9; font-size: 14px; margin-top: 10px; display: block; font-weight: bold; }
 
-        .full-text { text-align: justify; font-size: 15px; margin-top: 20px; }
+        .full-text { text-align: justify; font-size: 15px; }
         .quran-text { color: #2c7a7b; font-weight: bold; text-align: center; display: block; margin: 20px 0; font-size: 18px; }
         .hadith-text { color: #2c4a7b; font-weight: bold; text-align: center; display: block; margin: 10px 0; }
 
         .section-header { background: #e6fffa; padding: 10px 15px; border-right: 6px solid #2c7a7b; font-weight: bold; color: #2c7a7b; margin: 30px 0 15px 0; }
+        .info-block { margin-bottom: 20px; }
         .info-block ul { padding-right: 25px; margin: 0; }
         .info-block li { margin-bottom: 12px; }
 
@@ -67,14 +66,13 @@
 
         .field { margin-bottom: 20px; text-align: right; }
         label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #4a5568; }
-        input, select, textarea { width: 100%; padding: 14px; border: 1px solid #cbd5e0; border-radius: 12px; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #2c7a7b; box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.1); }
-
+        input, select, textarea { width: 100%; padding: 14px; border: 1px solid #cbd5e0; border-radius: 12px; box-sizing: border-box; font-family: inherit; }
+        
         .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 15px; text-align: right; font-size: 14px; }
         .checkbox-group input { width: auto; margin-top: 5px; }
 
         .btn-main { width: 100%; padding: 18px; background: #2c7a7b; color: white; border: none; border-radius: 15px; font-size: 18px; cursor: pointer; font-weight: bold; margin-top: 25px; transition: 0.3s; }
-        .btn-main:hover { background: #1e5a5c; transform: translateY(-2px); }
+        .btn-main:hover { background: #1e5a5c; }
         .btn-back { width: 100%; padding: 12px; background: #edeff2; color: #4a5568; border: none; border-radius: 12px; font-size: 14px; cursor: pointer; margin-top: 15px; font-weight: bold; }
 
         footer { text-align: center; padding: 40px 0; font-size: 13px; color: #718096; }
@@ -84,7 +82,7 @@
 
     <header class="header-banner">
         <div class="logo-wrapper">
-    <img src="Picsart_26-01-31_01-22-20-322.png" alt="" class="team-logo">
+            <img src="https://i.ibb.co/N2K3y9hP/Picsart-26-01-30-21-08-01-996.png" alt="شعار أثر كيميائي" class="team-logo">
         </div>
         <h1>فريق أثر كيميائي التطوعي</h1>
         <span class="motto-header">إيمانًا بأن العطاء مسؤولية، وبأن المبادرة تصنع الفرق، وبأن الأثر لا يُقاس بالكلمات بل بالأفعال</span>
@@ -94,27 +92,44 @@
         
         <div id="welcome-screen">
             <div class="full-text">
-                <p>يسرّنا ويشرّفنا أن نخطو مع حضراتكم خطوةً نحو صناعة أثر حقيقي، من خلال تأسيس فريق تطوعي يؤمن بأن خدمة المجتمع واجبٌ حاضر، وبأن العمل الجماعي هو الطريق الأقصر للبناء.</p>
+                <p>يسرّنا ويشرّفنا أن نخطو مع حضراتكم خطوةً نحو صناعة أثر حقيقي، من خلال تأسيس فريق تطوعي يؤمن بأن خدمة المجتمع ليست خيارًا مؤجلًا، بل واجبًا حاضرًا، وبأن العمل الجماعي هو الطريق الأقصر للتغيير والبناء.</p>
+                
+                <p>وقد رسم لنا الله تعالى منهج التعاون بقوله:</p>
                 <span class="quran-text">﴿وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ﴾</span>
+                
+                <p>وأكد رسول الله ﷺ هذا المعنى بقوله:</p>
                 <span class="hadith-text">«أَحَبُّ النَّاسِ إِلَى اللَّهِ أَنْفَعُهُمْ لِلنَّاسِ»</span>
+                
+                <p>وانطلاقًا من هذا الإيمان العميق، جاءت فكرة هذا الفريق التطوعي ليكون مساحةً للعطاء، ومنصةً للمبادرة، وصوتًا يُوقظ الهمم، ويحوّل الطاقات إلى أفعال، والأفعال إلى واقع ملموس، دعمًا للطاقات الشابة، وخدمةً للمجتمع بكل فئاته، وإسهامًا في بناء محافظتنا العزيزة ديالى وبناء الوطن عمومًا.</p>
 
                 <div class="section-header">رسالة الفريق</div>
-                <div class="info-block">إحداث أثر مجتمعي فاعل من خلال ترسيخ ثقافة العمل التطوعي، وتحفيز الأفراد على المبادرة، وبناء جيل واعٍ يؤمن بالمسؤولية ويصنع التغيير.</div>
+                <div class="info-block">
+                    إحداث أثر مجتمعي فاعل من خلال ترسيخ ثقافة العمل التطوعي، وتحفيز الأفراد على المبادرة والعطاء، وتنمية القدرات والمهارات، وبناء جيل واعٍ يؤمن بالمسؤولية، ويعمل بروح الفريق الواحد، ويصنع التغيير بيده لا بانتظاره.
+                </div>
 
                 <div class="section-header">يهدف الفريق إلى:</div>
                 <div class="info-block">
                     <ul>
-                        <li>إشاعة روح المبادرة في المجتمع.</li>
+                        <li>إشاعة روح المبادرة والعمل التطوعي في المجتمع.</li>
                         <li>تمكين الطاقات الشابة وتوجيهها نحو خدمة المجتمع.</li>
-                        <li>تنفيذ برامج تطوعية وتطويرية ذات قيمة حقيقية.</li>
-                        <li>توثيق النشاط التطوعي للحصول على نقاط المفاضلة (مجلس الخدمة الاتحادي).</li>
+                        <li>تنفيذ برامج تطوعية وتطويرية ذات قيمة حقيقية وأثر ملموس.</li>
+                        <li>تعزيز العمل بروح الفريق الواحد واليد الواحدة.</li>
+                        <li>تمكين المشاركين من توثيق نشاطهم التطوعي بما يتيح الحصول على نقطتين ضمن نظام تجميع النقاط المعتمد لدى مجلس الخدمة الاتحادي عند إطلاق التعيينات.</li>
                     </ul>
+                </div>
+
+                <div class="section-header">الفئات المستهدفة وبرامج الفريق</div>
+                <div class="info-block">
+                    يستهدف الفريق كل من يؤمن بأن له دورًا في هذا المجتمع، من طلبة وخريجين ومتطوعين، عبر برامج نوعية ملهمة تسعى إلى صناعة أثر مستدام، وتوسيع دائرة المشاركة المجتمعية، ليكون للفريق صدى واسع يحفّز الجميع على المساهمة والبذل.
+                    كما نعمل على إعداد برنامج خاص يُنفّذ وفق رؤية وخطة مدروسة، ليكون نقطة انطلاق حقيقية نحو عمل مؤثر ومنظم.
                 </div>
             </div>
 
             <div class="cta-box">
-                بادر قبل أن تغادر… فالأثر لا ينتظر المترددين، والتاريخ لا يذكر إلا أصحاب المبادرات.
+                بادر قبل أن تغادر… فالأثر لا ينتظر المترددين، والتاريخ لا يذكر إلا أصحاب المبادرات. فالأوطان تُبنى بسواعد المبادرين، لا بأمنيات المتفرجين.
             </div>
+
+            <p style="text-align: center; font-weight: bold;">وتفضّلوا بقبول فائق الاحترام والتقدير</p>
 
             <button class="btn-main" onclick="showForm()">الانتقال لاستمارة التسجيل</button>
         </div>
@@ -148,9 +163,9 @@
                     <input type="tel" name="phone" required>
                 </div>
 
-                <h3>2️⃣ المعلومات الدراسية</h3>
+                <h3>2️⃣ المعلومات الدراسية والمهنية</h3>
                 <div class="field">
-                    <label>الحالة الدراسية/المهنية *</label>
+                    <label>الحالة الدراسية *</label>
                     <select name="eduStatus" required>
                         <option value="طالب">طالب</option>
                         <option value="خريج">خريج</option>
@@ -159,22 +174,35 @@
                     </select>
                 </div>
                 <div class="field">
-                    <label>التخصص الدراسي</label>
+                    <label>التخصص / القسم</label>
                     <input type="text" name="major">
                 </div>
 
-                <h3>3️⃣ الاهتمامات</h3>
+                <h3>3️⃣ الخبرة والاهتمامات التطوعية</h3>
                 <div class="field">
-                    <label>المجالات المفضلة:</label>
-                    <div class="checkbox-group"><input type="checkbox" name="interests" value="إنسانية"> حملات إنسانية</div>
-                    <div class="checkbox-group"><input type="checkbox" name="interests" value="تعليمية"> أنشطة تعليمية</div>
+                    <label>هل سبق لك المشاركة في أعمال تطوعية؟</label>
+                    <select name="hasExperience">
+                        <option value="لا">لا</option>
+                        <option value="نعم">نعم</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>المجالات التي تفضل العمل بها:</label>
+                    <div class="checkbox-group"><input type="checkbox" name="interests" value="إنسانية"> حملات إنسانية وإغاثية</div>
+                    <div class="checkbox-group"><input type="checkbox" name="interests" value="تعليمية"> أنشطة تعليمية وتدريبية</div>
                     <div class="checkbox-group"><input type="checkbox" name="interests" value="توعوية"> حملات توعوية</div>
+                    <div class="checkbox-group"><input type="checkbox" name="interests" value="تنظيم"> تنظيم فعاليات ومؤتمرات</div>
                 </div>
 
-                <h3>4️⃣ الدافع</h3>
+                <h3>4️⃣ الدافع الشخصي</h3>
                 <div class="field">
-                    <label>لماذا ترغب بالانضمام؟ *</label>
-                    <textarea name="motivation" rows="4" required placeholder="تحدث بإيجاز عن شغفك بالعطاء"></textarea>
+                    <label>لماذا ترغب بالانضمام إلى فريق أثر كيميائي؟ *</label>
+                    <textarea name="motivation" rows="4" required placeholder="اكتب دافعك هنا..."></textarea>
+                </div>
+
+                <h3>5️⃣ التعهد</h3>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" required> أتعهد بأن المعلومات المقدّمة صحيحة، وألتزم بقيم العمل التطوعي وروح الفريق الواحد. *</label>
                 </div>
 
                 <button type="submit" class="btn-main" id="btnSubmit">إرسال البيانات الآن</button>
@@ -213,7 +241,7 @@
             formData.set('interests', interests.join(' - '));
 
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'});
-            alert("تم إرسال طلبك بنجاح! 🌱");
+            alert("تم إرسال طلبك بنجاح! 🌱\nشكراً لإنضمامك لعائلة أثر كيميائي.");
             e.target.reset();
             showWelcome();
         } catch (error) {
@@ -226,6 +254,3 @@
 </script>
 </body>
 </html>
-
-
-
