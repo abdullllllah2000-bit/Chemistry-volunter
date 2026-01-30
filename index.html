@@ -3,159 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل فريق أثر كيميائي التطوعي</title>
+    <title>فريق أثر كيميائي التطوعي</title>
     <style>
-        body { font-family: 'Tahoma', sans-serif; background: #f4f7f9; padding: 20px; color: #333; }
+        body { font-family: 'Tahoma', sans-serif; background: #f4f7f9; padding: 20px; color: #333; line-height: 1.6; }
         .container { background: white; max-width: 600px; margin: auto; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        
+        /* تصميم الواجهة الأولى */
+        #welcome-screen { text-align: center; }
+        .logo-placeholder { font-size: 50px; margin-bottom: 10px; }
+        h1 { color: #2c7a7b; margin-bottom: 20px; }
+        .info-card { background: #f9f9f9; padding: 15px; border-radius: 10px; text-align: right; margin-bottom: 20px; border-right: 5px solid #2c7a7b; }
+        
+        /* تصميم الاستمارة (مخفية في البداية) */
+        #form-screen { display: none; }
+        
         h2 { color: #2c7a7b; border-bottom: 2px solid #2c7a7b; padding-bottom: 10px; }
         h3 { background: #e6fffa; padding: 10px; border-right: 5px solid #2c7a7b; font-size: 16px; margin-top: 25px; }
-        p.desc { font-size: 14px; color: #666; line-height: 1.6; }
+        
         .field { margin-bottom: 15px; text-align: right; }
         label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
         input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .radio-group { display: flex; gap: 15px; align-items: center; margin-top: 5px; }
-        .radio-group input { width: auto; }
-        .checkbox-group { display: block; margin-bottom: 10px; font-size: 14px; }
+        
+        .radio-group, .checkbox-group { display: block; margin-top: 5px; text-align: right; }
         .checkbox-group input { width: auto; margin-left: 10px; }
-        button { width: 100%; padding: 15px; background: #2c7a7b; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 20px; }
-        button:hover { background: #1e5a5c; }
+        
+        button { width: 100%; padding: 15px; background: #2c7a7b; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #1e5a5c; transform: translateY(-2px); }
+        .btn-secondary { background: #718096; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>استمارة التسجيل في فريق أثر كيميائي– محافظة ديالى</h2>
-    <p class="desc">إيمانًا بأن العطاء مسؤولية، وبأن المبادرة تصنع الفرق، نطلق هذه الاستمارة للتسجيل في الفريق التطوعي، إسهامًا في خدمة المجتمع، ودعم الطاقات الشابة، وصناعة أثر مجتمعي حقيقي ومنظّم.</p>
-
-    <form id="volunteerForm">
-        <h3>1️⃣ البيانات الشخصية</h3>
-        <div class="field">
-            <label>الاسم الثلاثي *</label>
-            <input type="text" name="fullName" required>
+    
+    <div id="welcome-screen">
+        <div class="logo-placeholder">🌱</div>
+        <h1>فريق أثر كيميائي التطوعي</h1>
+        <p>مرحباً بك في بوابة العطاء بمحافظة ديالى</p>
+        
+        <div class="info-card">
+            <strong>🎯 رسالتنا:</strong>
+            <p>نسعى لتمكين الشباب واستثمار طاقاتهم في خدمة المجتمع ونشر الوعي العلمي والإنساني.</p>
         </div>
-        <div class="field">
-            <label>الجنس *</label>
-            <div class="radio-group">
-                <label><input type="radio" name="gender" value="ذكر" required> ذكر</label>
-                <label><input type="radio" name="gender" value="أنثى"> أنثى</label>
+
+        <div class="info-card">
+            <strong>🚀 أهدافنا:</strong>
+            <ul>
+                <li>تنظيم حملات إنسانية وإغاثية للمتعففين.</li>
+                <li>نشر الوعي الثقافي والعلمي في المجتمع.</li>
+                <li>تطوير مهارات المتطوعين ودمجهم في العمل الجماعي.</li>
+            </ul>
+        </div>
+
+        <div class="info-card" style="border-right-color: #e53e3e;">
+            <strong>⚠️ تعهد الأمانة:</strong>
+            <p>بالدخول للتسجيل، أنت تتعهد بتقديم معلومات صحيحة ودقيقة، وتلتزم بالجدية والمسؤولية تجاه المهام الموكلة إليك داخل الفريق.</p>
+        </div>
+
+        <button onclick="showForm()">الدخول إلى استمارة التسجيل</button>
+    </div>
+
+    <div id="form-screen">
+        <h2>استمارة الانضمام للفريق</h2>
+        <p style="font-size: 13px; color: #666;">يرجى ملء كافة الحقول المطلوبة بدقة.</p>
+
+        <form id="volunteerForm">
+            <h3>1️⃣ البيانات الشخصية</h3>
+            <div class="field">
+                <label>الاسم الثلاثي *</label>
+                <input type="text" name="fullName" required>
             </div>
-        </div>
-        <div class="field">
-            <label>تاريخ الولادة *</label>
-            <input type="date" name="dob" required>
-        </div>
-        <div class="field">
-            <label>المحافظة / القضاء (مثال: ديالى – بعقوبة) *</label>
-            <input type="text" name="location" required>
-        </div>
-        <div class="field">
-            <label>رقم الهاتف (واتساب فعّال) *</label>
-            <input type="tel" name="phone" pattern="[0-9+]{10,15}" required>
-        </div>
-        <div class="field">
-            <label>البريد الإلكتروني (إن وجد)</label>
-            <input type="email" name="email">
-        </div>
+            <div class="field">
+                <label>الجنس *</label>
+                <select name="gender" required>
+                    <option value="">اختر الجنس</option>
+                    <option value="ذكر">ذكر</option>
+                    <option value="أنثى">أنثى</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>تاريخ الولادة *</label>
+                <input type="date" name="dob" required>
+            </div>
+            <div class="field">
+                <label>المحافظة / القضاء *</label>
+                <input type="text" name="location" placeholder="مثال: ديالى - بعقوبة" required>
+            </div>
+            <div class="field">
+                <label>رقم الهاتف (واتساب فعّال) *</label>
+                <input type="tel" name="phone" required>
+            </div>
 
-        <h3>2️⃣ المعلومات الدراسية والمهنية</h3>
-        <div class="field">
-            <label>الحالة الدراسية *</label>
-            <select name="eduStatus" required>
-                <option value="طالب">طالب</option>
-                <option value="خريج">خريج</option>
-                <option value="موظف">موظف</option>
-                <option value="عاطل عن العمل">عاطل عن العمل</option>
-            </select>
-        </div>
-        <div class="field">
-            <label>التخصص / القسم</label>
-            <input type="text" name="major">
-        </div>
-        <div class="field">
-            <label>اسم الجامعة / المعهد</label>
-            <input type="text" name="university">
-        </div>
+            <h3>2️⃣ المسار الأكاديمي والمهني</h3>
+            <div class="field">
+                <label>الحالة الدراسية/المهنية *</label>
+                <select name="eduStatus" required>
+                    <option value="طالب">طالب</option>
+                    <option value="خريج">خريج</option>
+                    <option value="موظف">موظف</option>
+                    <option value="كاسب">كاسب</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>التخصص أو القسم</label>
+                <input type="text" name="major">
+            </div>
 
-        <h3>3️⃣ الخبرة والاهتمامات التطوعية</h3>
-        <div class="field">
-            <label>هل سبق لك المشاركة في أعمال تطوعية؟ *</label>
-            <select name="hasExperience" required>
-                <option value="نعم">نعم</option>
-                <option value="لا">لا</option>
-            </select>
-        </div>
-        <div class="field">
-            <label>إن كانت الإجابة نعم، اذكرها باختصار</label>
-            <textarea name="expDetails"></textarea>
-        </div>
-        <div class="field">
-            <label>المجالات التي تفضّل العمل بها (يمكن اختيار أكثر من مجال):</label>
-            <div class="checkbox-group"><input type="checkbox" name="interests" value="حملات إنسانية"> حملات إنسانية وإغاثية</div>
-            <div class="checkbox-group"><input type="checkbox" name="interests" value="أنشطة تعليمية"> أنشطة تعليمية وتدريبية</div>
-            <div class="checkbox-group"><input type="checkbox" name="interests" value="حملات توعوية"> حملات توعوية</div>
-            <div class="checkbox-group"><input type="checkbox" name="interests" value="تنظيم فعاليات"> تنظيم فعاليات ومؤتمرات</div>
-        </div>
-        <div class="field">
-            <label>كم تستطيع تخصيص وقت للعمل التطوعي؟ *</label>
-            <select name="timeCommit" required>
-                <option value="يوم واحد أسبوعيًا">يوم واحد أسبوعيًا</option>
-                <option value="يومان">يومان</option>
-                <option value="حسب الحاجة">حسب الحاجة</option>
-                <option value="غير محدد">غير محدد</option>
-            </select>
-        </div>
+            <h3>3️⃣ الاهتمامات التطوعية</h3>
+            <div class="field">
+                <label>المجالات المفضلة:</label>
+                <div class="checkbox-group"><input type="checkbox" name="interests" value="حملات إنسانية"> حملات إنسانية وإغاثية</div>
+                <div class="checkbox-group"><input type="checkbox" name="interests" value="أنشطة تعليمية"> أنشطة تعليمية وتدريبية</div>
+                <div class="checkbox-group"><input type="checkbox" name="interests" value="حملات توعوية"> حملات توعوية</div>
+                <div class="checkbox-group"><input type="checkbox" name="interests" value="تنظيم"> تنظيم فعاليات</div>
+            </div>
 
-        <h3>4️⃣ الدافع الشخصي</h3>
-        <div class="field">
-            <label>لماذا ترغب بالانضمام إلى الفريق التطوعي؟ *</label>
-            <textarea name="motivation" required></textarea>
-        </div>
-        <div class="field">
-            <label>هل أنت ملتزم بالعمل بروح الفريق واحترام التعليمات؟ *</label>
-            <select name="commitment" required>
-                <option value="نعم">نعم</option>
-                <option value="نعم وبكل جدية">نعم وبكل جدية</option>
-            </select>
-        </div>
+            <div class="field">
+                <label>لماذا ترغب بالانضمام إلينا؟ *</label>
+                <textarea name="motivation" rows="3" required></textarea>
+            </div>
 
-        <h3>5️⃣ التعهد</h3>
-        <div class="checkbox-group">
-            <label><input type="checkbox" required> أتعهد بأن المعلومات المقدّمة صحيحة، وألتزم بقيم العمل التطوعي وروح الفريق الواحد. *</label>
-        </div>
+            <div class="checkbox-group">
+                <label><input type="checkbox" required> أتعهد بصحة البيانات والالتزام بالنظام الداخلي للفريق. *</label>
+            </div>
 
-        <button type="submit" id="btnSubmit">إرسال البيانات</button>
-    </form>
+            <button type="submit" id="btnSubmit">إرسال البيانات الآن</button>
+            <button type="button" class="btn-secondary" onclick="showWelcome()">رجوع للخلف</button>
+        </form>
+    </div>
+
 </div>
 
 <script>
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const formScreen = document.getElementById('form-screen');
     const form = document.getElementById('volunteerForm');
     const btn = document.getElementById('btnSubmit');
 
+    // وظائف التنقل
+    function showForm() {
+        welcomeScreen.style.display = 'none';
+        formScreen.style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showWelcome() {
+        formScreen.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    // معالجة الإرسال
     form.onsubmit = async (e) => {
         e.preventDefault();
         btn.disabled = true;
         btn.innerText = "جاري الإرسال...";
 
-        // ضع رابط الـ exec الخاص بك هنا
         const scriptURL = "https://script.google.com/macros/s/AKfycbzjdEX4Y6wnl9sHb5tnxz7lTdlMf9cyjVJl_7I9C-01YdR6eIjEypjqOYZ3ptmf3-2r3Q/exec";
 
         try {
-            // تجميع خيارات الاختيار المتعدد (Checkbox)
             const formData = new FormData(form);
             const interests = [];
             document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
             formData.set('interests', interests.join(' - '));
 
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'});
-            alert("شكرًا لتسجيلك 🌱\nنثمّن رغبتك في العطاء والمبادرة، وسيتم التواصل مع المقبولين لاحقًا.");
+            
+            alert("تم استلام طلبك بنجاح! 🌱\nشكراً لروحك التطوعية، سنتواصل معك قريباً.");
             form.reset();
+            showWelcome();
         } catch (error) {
-            alert("حدث خطأ في الإرسال.");
+            alert("حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.");
         } finally {
             btn.disabled = false;
-            btn.innerText = "إرسال البيانات";
+            btn.innerText = "إرسال البيانات الآن";
         }
     };
 </script>
+
 </body>
 </html>
