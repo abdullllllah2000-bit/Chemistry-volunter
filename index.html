@@ -221,27 +221,47 @@
         
         // ضع رابط السكربت الجديد هنا
         const scriptURL = "https://script.google.com/macros/s/AKfycbymjxffDKViFGXTjm7AK9lksRt65hOwL7_EX-0bd5_mRQmMK7NlgcWBFLDiZDcFyrI55w/exec";
+// ابحث عن هذا السطر (تقريباً سطر 208)
+document.getElementById('volunteerForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.innerText = "جاري معالجة طلبك...";
+    
+    const scriptURL = "رابط_سكربت_الخاص_بك"; // تأكد من وضع رابطك هنا
 
-        try {
-            const formData = new FormData(e.target);
-            const interests = [];
-            document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
-            formData.set('interests', interests.join(' - '));
+    try {
+        const formData = new FormData(e.target);
+        const interests = [];
+        document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
+        formData.set('interests', interests.join(' - '));
 
-            await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-            alert("تم إرسال بياناتك بنجاح! 🌱");
-            e.target.reset();
-            showWelcome();
-        } catch(err) {
-            alert("حدث خطأ في الاتصال.");
-        } finally {
-            btn.disabled = false;
-            btn.innerText = "إرسال طلب الانضمام الآن";
-        }
-    };
+        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
+
+        // هذا هو التعديل الاحترافي الجديد:
+        document.getElementById('form-screen').innerHTML = `
+            <div style="text-align:center; padding:40px; animation: fadeIn 0.8s;">
+                <div style="font-size:70px; margin-bottom:20px;">🌱</div>
+                <h2 style="color:#2c7a7b; margin-bottom:15px;">تم استلام طلبك بنجاح!</h2>
+                <p style="color:#4a5568; font-size:18px; margin-bottom:30px;">
+                    شكراً لثقتك بفريق <b>أثر كيميائي</b>.<br> 
+                    سيتم مراجعة بياناتك والتواصل معك عبر الواتساب قريباً.
+                </p>
+                <button onclick="location.reload()" class="btn-main" style="max-width:200px;">العودة للرئيسية</button>
+            </div>
+        `;
+        window.scrollTo(0,0);
+        
+    } catch(err) {
+        alert("عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.");
+        btn.disabled = false;
+        btn.innerText = "إرسال طلب الانضمام الآن";
+    }
+};
 </script>
 </body>
 </html>
+
 
 
 
