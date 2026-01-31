@@ -40,6 +40,12 @@
         .btn-main:hover { background: #1e5a5c; transform: translateY(-2px); }
         .btn-back { width: 100%; padding: 12px; background: #edeff2; color: #4a5568; border: none; border-radius: 12px; cursor: pointer; margin-top: 15px; font-weight: bold; }
         footer { text-align: center; padding: 40px 0; font-size: 13px; color: #718096; }
+
+        /* تعديلات شريط التقدم */
+        .progress-container { width: 100%; background: #edf2f7; border-radius: 10px; height: 8px; margin-bottom: 30px; display: none; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: #2c7a7b; transition: width 0.3s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -94,36 +100,40 @@
 </div>
 
 <div id="form-screen">
+    <div class="progress-container" id="progCont">
+        <div class="progress-bar" id="progBar"></div>
+    </div>
+    
     <h2>استمارة الانضمام للفريق</h2>
     <form id="volunteerForm">
         <h3>1️⃣ البيانات الأساسية</h3>
-        <div class="field"><label>الاسم الثلاثي واللقب *</label><input type="text" name="fullName" required></div>
-        <div class="field"><label>البريد الإلكتروني (Email)</label><input type="email" name="email"></div>
+        <div class="field"><label>الاسم الثلاثي واللقب *</label><input type="text" name="fullName" required oninput="updateProgress()"></div>
+        <div class="field"><label>البريد الإلكتروني (Email)</label><input type="email" name="email" oninput="updateProgress()"></div>
         <div class="field">
             <label>الجنس *</label>
-            <select name="gender" required>
+            <select name="gender" required onchange="updateProgress()">
                 <option value="">اختر</option>
                 <option value="ذكر">ذكر</option>
                 <option value="أنثى">أنثى</option>
             </select>
         </div>
-        <div class="field"><label>تاريخ الميلاد *</label><input type="date" name="dob" required></div>
-        <div class="field"><label>السكن الحالي (المحافظة - القضاء - الناحية) *</label><input type="text" name="address" required></div>
-        <div class="field"><label>رقم الهاتف (واتساب فعال) *</label><input type="tel" name="phone" required></div>
+        <div class="field"><label>تاريخ الميلاد *</label><input type="date" name="dob" required oninput="updateProgress()"></div>
+        <div class="field"><label>السكن الحالي (المحافظة - القضاء - الناحية) *</label><input type="text" name="address" required oninput="updateProgress()"></div>
+        <div class="field"><label>رقم الهاتف (واتساب فعال) *</label><input type="tel" name="phone" required oninput="updateProgress()"></div>
 
         <h3>2️⃣ المستوى التعليمي والمهني</h3>
         <div class="field">
             <label>الحالة الدراسية *</label>
-            <select name="eduStatus" required>
+            <select name="eduStatus" required onchange="updateProgress()">
                 <option value="طالب">طالب جامعي</option>
                 <option value="خريج">خريج</option>
                 <option value="أخرى">أخرى</option>
             </select>
         </div>
-        <div class="field"><label>الكلية / القسم / التخصص *</label><input type="text" name="major" required></div>
+        <div class="field"><label>الكلية / القسم / التخصص *</label><input type="text" name="major" required oninput="updateProgress()"></div>
         <div class="field">
             <label>العمل الحالي / المهنة *</label>
-            <select name="job" required>
+            <select name="job" required onchange="updateProgress()">
                 <option value="">اختر</option>
                 <option value="موظف حكومي">موظف حكومي</option>
                 <option value="قطاع خاص">قطاع خاص</option>
@@ -132,37 +142,37 @@
                 <option value="خريج">خريج يبحث عن عمل</option>
             </select>
         </div>
-        <div class="field"><label>المهارات التي تتقنها (تصميم، مونتاج، كتابة، إلخ)</label><textarea name="skills" rows="2"></textarea></div>
+        <div class="field"><label>المهارات التي تتقنها (تصميم، مونتاج، كتابة، إلخ)</label><textarea name="skills" rows="2" oninput="updateProgress()"></textarea></div>
 
         <h3>3️⃣ الخبرة والاهتمامات التطوعية</h3>
         <div class="field">
             <label>هل سبق لك المشاركة في أعمال تطوعية؟</label>
-            <select name="prevExp" id="prevExp" onchange="toggleExp()">
+            <select name="prevExp" id="prevExp" onchange="toggleExp(); updateProgress();">
                 <option value="لا">لا</option>
                 <option value="نعم">نعم</option>
             </select>
         </div>
         <div class="field" id="expDiv" style="display:none;">
             <label>يرجى ذكر الأعمال أو الفرق التي شاركت بها سابقاً:</label>
-            <textarea name="expDetails" rows="2"></textarea>
+            <textarea name="expDetails" rows="2" oninput="updateProgress()"></textarea>
         </div>
 
         <div class="field">
             <label>المجالات التي ترغب بالإبداع فيها داخل الفريق:</label>
             <div class="checkbox-grid">
-                <div class="checkbox-item"><input type="checkbox" name="interests" value="إنسانية"> حملات إنسانية</div>
-                <div class="checkbox-item"><input type="checkbox" name="interests" value="تنظيمية"> تنظيم فعاليات</div>
-                <div class="checkbox-item"><input type="checkbox" name="interests" value="إعلامية"> تصوير وإعلام</div>
-                <div class="checkbox-item"><input type="checkbox" name="interests" value="توعوية"> حملات توعية</div>
+                <div class="checkbox-item"><input type="checkbox" name="interests" value="إنسانية" onchange="updateProgress()"> حملات إنسانية</div>
+                <div class="checkbox-item"><input type="checkbox" name="interests" value="تنظيمية" onchange="updateProgress()"> تنظيم فعاليات</div>
+                <div class="checkbox-item"><input type="checkbox" name="interests" value="إعلامية" onchange="updateProgress()"> تصوير وإعلام</div>
+                <div class="checkbox-item"><input type="checkbox" name="interests" value="توعوية" onchange="updateProgress()"> حملات توعية</div>
             </div>
         </div>
 
         <h3>4️⃣ الرؤية والالتزام</h3>
-        <div class="field"><label>لماذا ترغب بالانضمام للفريق؟ *</label><textarea name="whyUs" rows="3" required></textarea></div>
-        <div class="field"><label>القيمة المضافة التي ستقدمها للفريق؟ *</label><textarea name="valueAdd" rows="3" required></textarea></div>
+        <div class="field"><label>لماذا ترغب بالانضمام للفريق؟ *</label><textarea name="whyUs" rows="3" required oninput="updateProgress()"></textarea></div>
+        <div class="field"><label>القيمة المضافة التي ستقدمها للفريق؟ *</label><textarea name="valueAdd" rows="3" required oninput="updateProgress()"></textarea></div>
         <div class="field">
             <label>هل أنت مستعد للالتزام بالنشاطات؟</label>
-            <select name="commitment" required>
+            <select name="commitment" required onchange="updateProgress()">
                 <option value="نعم">نعم، مستعد</option>
                 <option value="جزئي">حسب التفرغ</option>
             </select>
@@ -182,7 +192,7 @@
 
         <div class="field">
             <div class="checkbox-item">
-                <input type="checkbox" required name="agreement">
+                <input type="checkbox" required name="agreement" onchange="updateProgress()">
                 <label>أتعهد بصحة المعلومات والالتزام بضوابط الفريق المذكورة أعلاه. *</label>
             </div>
         </div>
@@ -199,6 +209,8 @@
     function showForm() {
         document.getElementById('welcome-screen').style.display = 'none';
         document.getElementById('form-screen').style.display = 'block';
+        document.getElementById('progCont').style.display = 'block';
+        updateProgress();
         window.scrollTo(0,0);
     }
 
@@ -213,39 +225,24 @@
         document.getElementById('expDiv').style.display = (val === 'نعم') ? 'block' : 'none';
     }
 
+    function updateProgress() {
+        const form = document.getElementById('volunteerForm');
+        const total = form.querySelectorAll('input[required], select[required], textarea[required]').length;
+        let filled = 0;
+        form.querySelectorAll('input[required], select[required], textarea[required]').forEach(el => {
+            if(el.type === 'checkbox' && el.checked) filled++;
+            else if(el.value !== "") filled++;
+        });
+        const percentage = (filled / total) * 100;
+        document.getElementById('progBar').style.width = percentage + '%';
+    }
+
     document.getElementById('volunteerForm').onsubmit = async (e) => {
         e.preventDefault();
         const btn = document.getElementById('btnSubmit');
         btn.disabled = true;
         btn.innerText = "جاري معالجة طلبك...";
         
-        // ضع رابط السكربت الجديد هنا
-        const scriptURL = "https://script.google.com/macros/s/AKfycbymjxffDKViFGXTjm7AK9lksRt65hOwL7_EX-0bd5_mRQmMK7NlgcWBFLDiZDcFyrI55w/exec";
-// ابحث عن هذا السطر (تقريباً سطر 208)
-document.getElementById('volunteerForm').onsubmit = async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('btnSubmit');
-    btn.disabled = true;
-    btn.innerText = "جاري معالجة طلبك...";
-    
-    const scriptURL = "رابط_سكربت_الخاص_بك"; // تأكد من وضع رابطك هنا
-
-    try {
-        const formData = new FormData(e.target);
-        const interests = [];
-        document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
-        formData.set('interests', interests.join(' - '));
-
-        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-
-        // هذا هو التعديل الاحترافي الجديد:
-        document.getElementById('volunteerForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('btnSubmit');
-        btn.disabled = true;
-        btn.innerText = "جاري معالجة طلبك...";
-        
-        // رابط السكربت الخاص بك
         const scriptURL = "https://script.google.com/macros/s/AKfycbymjxffDKViFGXTjm7AK9lksRt65hOwL7_EX-0bd5_mRQmMK7NlgcWBFLDiZDcFyrI55w/exec";
 
         try {
@@ -256,26 +253,19 @@ document.getElementById('volunteerForm').onsubmit = async (e) => {
 
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
 
-            // --- إظهار صفحة الشكر الاحترافية بدل الاستمارة ---
             document.getElementById('form-screen').innerHTML = `
-                <div style="text-align:center; padding:50px 20px; animation: fadeIn 1.2s ease-in-out;">
+                <div style="text-align:center; padding:50px 20px; animation: fadeIn 0.8s ease-in-out;">
                     <div style="font-size:80px; margin-bottom:20px;">✨</div>
-                    <h2 style="color:#2c7a7b; font-size:28px; margin-bottom:15px; border:none;">تم إرسال طلبك بنجاح!</h2>
-                    <p style="color:#4a5568; font-size:18px; margin-bottom:30px; line-height:1.8;">
-                        شكراً لانضمامك لأسرة <b>فريق أثر كيميائي</b>.<br> 
-                        لقد وصلت بياناتك إلينا، وسنتواصل معك قريباً لنبدأ معاً رحلة صناعة الأثر.
-                    </p>
-                    <div style="display:inline-block; background:#e6fffa; color:#2c7a7b; padding:15px 25px; border-radius:50px; font-weight:bold; margin-bottom:30px;">
-                        🌱 الأثر لا ينتظر المترددين.. شكراً لمبادرتك
-                    </div>
+                    <h2 style="color:#2c7a7b; border:none;">تم إرسال طلبك بنجاح!</h2>
+                    <p style="color:#4a5568; font-size:18px;">شكراً لانضمامك لأسرة <b>فريق أثر كيميائي</b>. سنتواصل معك قريباً.</p>
+                    <div style="display:inline-block; background:#e6fffa; color:#2c7a7b; padding:10px 20px; border-radius:50px; font-weight:bold; margin:20px 0;">🌱 الأثر يبقى دائماً</div>
                     <br>
-                    <button onclick="location.reload()" class="btn-main" style="max-width:220px; margin:0 auto;">العودة للرئيسية</button>
+                    <button onclick="location.reload()" class="btn-main" style="max-width:200px;">العودة للرئيسية</button>
                 </div>
             `;
             window.scrollTo(0,0);
-            
         } catch(err) {
-            alert("حدث خطأ بسيط، يرجى المحاولة مرة أخرى.");
+            alert("حدث خطأ بسيط، حاول مرة أخرى.");
             btn.disabled = false;
             btn.innerText = "إرسال طلب الانضمام الآن";
         }
@@ -283,10 +273,3 @@ document.getElementById('volunteerForm').onsubmit = async (e) => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
