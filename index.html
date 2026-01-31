@@ -39,12 +39,12 @@
         .btn-main { width: 100%; padding: 20px; background: #2c7a7b; color: white; border: none; border-radius: 15px; font-size: 19px; cursor: pointer; font-weight: bold; margin-top: 25px; box-shadow: 0 4px 12px rgba(44,122,123,0.3); transition: 0.3s; }
         .btn-main:hover { background: #1e5a5c; transform: translateY(-2px); }
         .btn-back { width: 100%; padding: 12px; background: #edeff2; color: #4a5568; border: none; border-radius: 12px; cursor: pointer; margin-top: 15px; font-weight: bold; }
-        footer { text-align: center; padding: 40px 0; font-size: 13px; color: #718096; }
-
-        /* تعديلات شريط التقدم */
+        
+        /* شريط التقدم */
         .progress-container { width: 100%; background: #edf2f7; border-radius: 10px; height: 8px; margin-bottom: 30px; display: none; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: #2c7a7b; transition: width 0.3s ease; }
 
+        footer { text-align: center; padding: 40px 0; font-size: 13px; color: #718096; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -100,14 +100,12 @@
 </div>
 
 <div id="form-screen">
-    <div class="progress-container" id="progCont">
-        <div class="progress-bar" id="progBar"></div>
-    </div>
+    <div class="progress-container" id="progCont"><div class="progress-bar" id="progBar"></div></div>
     
     <h2>استمارة الانضمام للفريق</h2>
     <form id="volunteerForm">
         <h3>1️⃣ البيانات الأساسية</h3>
-        <div class="field"><label>الاسم الثلاثي واللقب *</label><input type="text" name="fullName" required oninput="updateProgress()"></div>
+        <div class="field"><label>الاسم الثلاثي واللقب *</label><input type="text" id="userName" name="fullName" required oninput="updateProgress()"></div>
         <div class="field"><label>البريد الإلكتروني (Email)</label><input type="email" name="email" oninput="updateProgress()"></div>
         <div class="field">
             <label>الجنس *</label>
@@ -197,7 +195,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn-main" id="btnSubmit">إرسال طلب الانضمام الآن</button>
+        <button type="submit" class="btn-main" id="btnSubmit">إرسال طلب الانضمام وتأكيده</button>
         <button type="button" class="btn-back" onclick="showWelcome()">العودة لقراءة الأهداف</button>
     </form>
 </div>
@@ -227,47 +225,45 @@
 
     function updateProgress() {
         const form = document.getElementById('volunteerForm');
-        const total = form.querySelectorAll('input[required], select[required], textarea[required]').length;
+        const required = form.querySelectorAll('[required]');
         let filled = 0;
-        form.querySelectorAll('input[required], select[required], textarea[required]').forEach(el => {
-            if(el.type === 'checkbox' && el.checked) filled++;
-            else if(el.value !== "") filled++;
+        required.forEach(el => {
+            if(el.type === 'checkbox') { if(el.checked) filled++; }
+            else if(el.value.trim() !== "") filled++;
         });
-        const percentage = (filled / total) * 100;
-        document.getElementById('progBar').style.width = percentage + '%';
+        document.getElementById('progBar').style.width = (filled / required.length * 100) + '%';
     }
 
     document.getElementById('volunteerForm').onsubmit = async (e) => {
         e.preventDefault();
         const btn = document.getElementById('btnSubmit');
+        const name = document.getElementById('userName').value;
         btn.disabled = true;
-        btn.innerText = "جاري معالجة طلبك...";
+        btn.innerText = "جاري حفظ بياناتك...";
         
         const scriptURL = "https://script.google.com/macros/s/AKfycbymjxffDKViFGXTjm7AK9lksRt65hOwL7_EX-0bd5_mRQmMK7NlgcWBFLDiZDcFyrI55w/exec";
 
         try {
             const formData = new FormData(e.target);
-            const interests = [];
-            document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
-            formData.set('interests', interests.join(' - '));
-
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
 
+            const myNumber = "9647721752637";
+            const msg = `مرحباً فريق أثر كيميائي، أنا المتطوع (${name})، أرسلت بياناتي عبر الموقع وأرغب في تأكيد انضمامي 🌱`;
+            const waURL = `https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`;
+
             document.getElementById('form-screen').innerHTML = `
-                <div style="text-align:center; padding:50px 20px; animation: fadeIn 0.8s ease-in-out;">
-                    <div style="font-size:80px; margin-bottom:20px;">✨</div>
-                    <h2 style="color:#2c7a7b; border:none;">تم إرسال طلبك بنجاح!</h2>
-                    <p style="color:#4a5568; font-size:18px;">شكراً لانضمامك لأسرة <b>فريق أثر كيميائي</b>. سنتواصل معك قريباً.</p>
-                    <div style="display:inline-block; background:#e6fffa; color:#2c7a7b; padding:10px 20px; border-radius:50px; font-weight:bold; margin:20px 0;">🌱 الأثر يبقى دائماً</div>
-                    <br>
-                    <button onclick="location.reload()" class="btn-main" style="max-width:200px;">العودة للرئيسية</button>
+                <div style="text-align:center; padding:50px 20px; animation: fadeIn 0.8s;">
+                    <div style="font-size:70px;">✨</div>
+                    <h2 style="color:#2c7a7b;">تم إرسال طلبك بنجاح!</h2>
+                    <p>أهلاً بك يا <b>${name}</b> في الفريق.</p>
+                    <p>سيتم تحويلك الآن للواتساب لتأكيد الطلب مع الإدارة...</p>
+                    <button onclick="window.location.href='${waURL}'" class="btn-main" style="background:#25D366; max-width:250px;">تأكيد عبر واتساب الآن</button>
                 </div>
             `;
-            window.scrollTo(0,0);
+            setTimeout(() => { window.location.href = waURL; }, 3500);
         } catch(err) {
-            alert("حدث خطأ بسيط، حاول مرة أخرى.");
+            alert("حدث خطأ، حاول مجدداً.");
             btn.disabled = false;
-            btn.innerText = "إرسال طلب الانضمام الآن";
         }
     };
 </script>
