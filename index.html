@@ -239,28 +239,51 @@ document.getElementById('volunteerForm').onsubmit = async (e) => {
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
 
         // هذا هو التعديل الاحترافي الجديد:
-        document.getElementById('form-screen').innerHTML = `
-            <div style="text-align:center; padding:40px; animation: fadeIn 0.8s;">
-                <div style="font-size:70px; margin-bottom:20px;">🌱</div>
-                <h2 style="color:#2c7a7b; margin-bottom:15px;">تم استلام طلبك بنجاح!</h2>
-                <p style="color:#4a5568; font-size:18px; margin-bottom:30px;">
-                    شكراً لثقتك بفريق <b>أثر كيميائي</b>.<br> 
-                    سيتم مراجعة بياناتك والتواصل معك عبر الواتساب قريباً.
-                </p>
-                <button onclick="location.reload()" class="btn-main" style="max-width:200px;">العودة للرئيسية</button>
-            </div>
-        `;
-        window.scrollTo(0,0);
+        document.getElementById('volunteerForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btnSubmit');
+        btn.disabled = true;
+        btn.innerText = "جاري معالجة طلبك...";
         
-    } catch(err) {
-        alert("عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.");
-        btn.disabled = false;
-        btn.innerText = "إرسال طلب الانضمام الآن";
-    }
-};
+        // رابط السكربت الخاص بك
+        const scriptURL = "https://script.google.com/macros/s/AKfycbymjxffDKViFGXTjm7AK9lksRt65hOwL7_EX-0bd5_mRQmMK7NlgcWBFLDiZDcFyrI55w/exec";
+
+        try {
+            const formData = new FormData(e.target);
+            const interests = [];
+            document.querySelectorAll('input[name="interests"]:checked').forEach(cb => interests.push(cb.value));
+            formData.set('interests', interests.join(' - '));
+
+            await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
+
+            // --- إظهار صفحة الشكر الاحترافية بدل الاستمارة ---
+            document.getElementById('form-screen').innerHTML = `
+                <div style="text-align:center; padding:50px 20px; animation: fadeIn 1.2s ease-in-out;">
+                    <div style="font-size:80px; margin-bottom:20px;">✨</div>
+                    <h2 style="color:#2c7a7b; font-size:28px; margin-bottom:15px; border:none;">تم إرسال طلبك بنجاح!</h2>
+                    <p style="color:#4a5568; font-size:18px; margin-bottom:30px; line-height:1.8;">
+                        شكراً لانضمامك لأسرة <b>فريق أثر كيميائي</b>.<br> 
+                        لقد وصلت بياناتك إلينا، وسنتواصل معك قريباً لنبدأ معاً رحلة صناعة الأثر.
+                    </p>
+                    <div style="display:inline-block; background:#e6fffa; color:#2c7a7b; padding:15px 25px; border-radius:50px; font-weight:bold; margin-bottom:30px;">
+                        🌱 الأثر لا ينتظر المترددين.. شكراً لمبادرتك
+                    </div>
+                    <br>
+                    <button onclick="location.reload()" class="btn-main" style="max-width:220px; margin:0 auto;">العودة للرئيسية</button>
+                </div>
+            `;
+            window.scrollTo(0,0);
+            
+        } catch(err) {
+            alert("حدث خطأ بسيط، يرجى المحاولة مرة أخرى.");
+            btn.disabled = false;
+            btn.innerText = "إرسال طلب الانضمام الآن";
+        }
+    };
 </script>
 </body>
 </html>
+
 
 
 
